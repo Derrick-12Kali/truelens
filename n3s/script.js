@@ -12,7 +12,6 @@ function analyzeText(text, sortBy) {
     const apiKey = 'a91e0ecdc9f148629671a95665539052'; //API key
     const nigerianSources = [
         'punchng.com',
-        'vanguardngr.com',
     ];
 
     let apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(text)}&apiKey=${apiKey}`;
