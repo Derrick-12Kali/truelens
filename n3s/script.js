@@ -9,20 +9,13 @@ document.getElementById('analyzeButton').addEventListener('click', () => {
 });
 
 function analyzeText(text, sortBy) {
-    const apiKey = 'a91e0ecdc9f148629671a95665539052'; //API key
-    const nigerianSources = [
-        'punchng.com',
-    ];
+    const apiKey = 'aOgjx3M7ElgLEQIJufWRzXrb38oWJMvQF_4dkSIWUYmL__Rt'; // Replace with your Currents API key
+    let apiUrl = `https://api.currentsapi.services/v1/search?keywords=${encodeURIComponent(text)}&language=en&country=ng&apiKey=${apiKey}`;
 
-    let apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(text)}&apiKey=${apiKey}`;
-
-    //sorting parameter if it is provided
+    // Add sorting parameter if provided
     if (sortBy) {
-        apiUrl += `&sortBy=${sortBy}`;
+        apiUrl += `&sort_by=${sortBy}`;
     }
-
-    //use default Nigerian sources
-    apiUrl += `&domains=${nigerianSources.join(',')}`;
 
     fetch(apiUrl)
         .then(response => response.json())
@@ -40,13 +33,13 @@ function displayResult(data) {
     resultDiv.className = 'result';
     resultDiv.innerHTML = ''; // Clear previous results
 
-    if (data.articles && data.articles.length > 0) {
-        data.articles.forEach(article => {
+    if (data.news && data.news.length > 0) {
+        data.news.forEach(article => {
             const articleDiv = document.createElement('div');
             articleDiv.classList.add('article');
             articleDiv.innerHTML = `
                 <p>Title: ${article.title}</p>
-                <p>Source: ${article.source.name}</p>
+                <p>Source: ${article.author ? article.author : 'Unknown'}</p>
                 <p><a href="${article.url}" target="_blank">Read more</a></p>
             `;
             resultDiv.appendChild(articleDiv);
